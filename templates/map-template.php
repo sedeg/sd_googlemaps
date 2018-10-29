@@ -83,4 +83,4 @@ $mapId = $shortcodeAttributes['map_id'];
 			});
 		})(jQuery, this);
 </script>
-<div style="width:<?php echo SDGmap_params::getSDGmapMeta('width'); ?>;height:<?php echo SDGmap_params::getSDGmapMeta('height'); ?>;" class="sd_gmap gmap" id="sd_gmap-<?php echo $mapId; ?>"></div>
+<div style="width:<?php echo SDGmap_params::getSDGmapMeta('width',$mapId); ?>;height:<?php echo SDGmap_params::getSDGmapMeta('height',$mapId); ?>;" class="sd_gmap gmap" id="sd_gmap-<?php echo $mapId; ?>"></div>
