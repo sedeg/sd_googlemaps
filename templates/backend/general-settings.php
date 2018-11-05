@@ -4,18 +4,9 @@ $fields = [
 	[
 		'fieldtype' => 'input',
 		'type' => 'text',
-		'name' => $prefix.'apikey',
+		'name' => SDGoogleMaps::META_KEY_GMAP_SETTING_API,
 		'placeholder' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-		'value' => SDGoogleMaps::getGeneralSettingValue('apikey'),
-	],
-	[
-		'fieldtype' => 'select',
-		'name' => $prefix.'map_output',
-		'options' => [
-			'nur mit Shortcode' => 'shortcode',
-			'Auswahl auf Seiten und Beiträgen' => 'page',
-		],
-		'value' => SDGoogleMaps::getGeneralSettingValue('map_output'),
+		'value' => SDGoogleMaps::getGeneralSettingValue(SDGoogleMaps::META_KEY_GMAP_SETTING_API),
 	],
 ];
 ?>
@@ -27,12 +18,12 @@ $fields = [
 			<tbody>
 				<tr>
 					<th scope="row"><label for="blogname">Google Maps API Key</label></th>
-					<td><?php SDGmap_fields::createField($fields[0]);?></td>
+					<td><?php SDGmapFields::createField($fields[0]);?></td>
 				</tr>
 			</tbody>
 		</table>
 		<p class="submit">
-			<input type="submit" value="Speichern" class="button button-primary" id="submit" name="<?php echo SDGoogleMaps::PREFIX;?>generalsettings_submit">
+			<input type="submit" value="Speichern" class="button button-primary" id="submit" name="<?php echo SDGoogleMaps::META_KEY_GMAP_SETTING_SUBMIT;?>">
 		</p>
 	</form>
 </div>

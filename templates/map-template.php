@@ -1,27 +1,34 @@
 <?php
 $mapId = $shortcodeAttributes['map_id'];
+$markerArgs = [
+	'posts_per_page' => -1,
+	'post_type' => SDGmapMarkerPostType::POST_TYPE_NAME,
+	'post_status' => 'publish',
+	'meta_key'   => SDGmapMarkerPostType::META_KEY_GMARKER_RELATED_MAP,
+	'meta_value' => $mapId,
+];
 ?>
 <script type="text/javascript">
 	var map;
 	var marker = Array();
 	var infowindows = Array();
 	var myLatLngCenter;
-	var places = <?php echo SDGmap_params::getSDGmapMarkers($mapId);?>
+	var places = <?php echo SDGmapMarkerPostType::getMarkersString($markerArgs);?>
 
 		function initGmap() {
 			var opts = {
-				scrollwheel: <?php echo SDGmap_params::getSDGmapMeta('mousewheel',$mapId);?>,
-				draggable: <?php echo SDGmap_params::getSDGmapMeta('dragging',$mapId);?>,
-				streetViewControl: <?php echo SDGmap_params::getSDGmapMeta('streetview',$mapId);?>,
-				zoomControl: <?php echo SDGmap_params::getSDGmapMeta('zoombuttons',$mapId);?>,
-				scaleControl: <?php echo SDGmap_params::getSDGmapMeta('scale',$mapId);?>,
-				mapTypeControl: <?php echo SDGmap_params::getSDGmapMeta('maptype',$mapId);?>,
-				center: new google.maps.LatLng(<?php echo SDGmap_params::getSDGmapMeta('map_center',$mapId);?>),
-				zoom: <?php echo SDGmap_params::getSDGmapMeta('zoom',$mapId);?>,
-				fullscreenControl: <?php echo SDGmap_params::getSDGmapMeta('fullscreen',$mapId);?>,
+				scrollwheel: <?php echo SDGmapMapPostType::getMapValue(SDGmapMapPostType::META_KEY_GMAP_MOUSEWHEEL, $mapId);?>,
+				draggable: <?php echo SDGmapMapPostType::getMapValue(SDGmapMapPostType::META_KEY_GMAP_DRAGGING,$mapId);?>,
+				streetViewControl: <?php echo SDGmapMapPostType::getMapValue(SDGmapMapPostType::META_KEY_GMAP_STREETVIEW,$mapId);?>,
+				zoomControl: <?php echo SDGmapMapPostType::getMapValue(SDGmapMapPostType::META_KEY_GMAP_ZOOMBUTTONS,$mapId);?>,
+				scaleControl: <?php echo SDGmapMapPostType::getMapValue(SDGmapMapPostType::META_KEY_GMAP_SCALE,$mapId);?>,
+				mapTypeControl: <?php echo SDGmapMapPostType::getMapValue(SDGmapMapPostType::META_KEY_GMAP_MAPTYPE,$mapId);?>,
+				center: new google.maps.LatLng(<?php echo SDGmapMapPostType::getMapValue(SDGmapMapPostType::META_KEY_GMAP_CENTER,$mapId);?>),
+				zoom: <?php echo SDGmapMapPostType::getMapValue(SDGmapMapPostType::META_KEY_GMAP_ZOOM,$mapId);?>,
+				fullscreenControl: <?php echo SDGmapMapPostType::getMapValue(SDGmapMapPostType::META_KEY_GMAP_FULLSCREEN,$mapId);?>,
 			}
 			map = new google.maps.Map(document.getElementById("sd_gmap-<?php echo $mapId;?>"), opts);
-			map.setOptions({styles: <?php echo SDGmap_params::getSDGmapStyle($mapId);?>});
+			map.setOptions({styles: <?php echo SDGmapMapPostType::getMapStyle($mapId);?>});
 
 			for (var i = 0; i < places.length; i++) {
 				var place = places[i];
@@ -41,14 +48,11 @@ $mapId = $shortcodeAttributes['map_id'];
 					}
 					myIcon = new google.maps.MarkerImage(place[2], null, null, null, new google.maps.Size(iconWidth, iconHeight));
 				}
-
-				console.log(place[7]);
 				if(place[7] == 'bounce'){
 					myAnimation = google.maps.Animation.BOUNCE;
 				}else if(place[7] == 'drop'){
 					myAnimation = google.maps.Animation.DROP;
 				}
-
 				marker[i] = new google.maps.Marker({
 					map: map,
 					icon: myIcon,
@@ -83,4 +87,4 @@ $mapId = $shortcodeAttributes['map_id'];
 			});
 		})(jQuery, this);
 </script>
-<div style="width:<?php echo SDGmap_params::getSDGmapMeta('width',$mapId); ?>;height:<?php echo SDGmap_params::getSDGmapMeta('height',$mapId); ?>;" class="sd_gmap gmap" id="sd_gmap-<?php echo $mapId; ?>"></div>
+<div style="width:<?php echo SDGmapMapPostType::getMapValue(SDGmapMapPostType::META_KEY_GMAP_WIDTH,$mapId); ?>;height:<?php echo SDGmapMapPostType::getMapValue(SDGmapMapPostType::META_KEY_GMAP_HEIGHT,$mapId); ?>;" class="sd_gmap gmap" id="sd_gmap-<?php echo $mapId; ?>"></div>
