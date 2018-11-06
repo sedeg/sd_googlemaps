@@ -2,7 +2,7 @@
 defined('ABSPATH') or die('No script kiddies please!');
 
 
-class SDGmap_fields
+class SDGmapFields
 {
 
 	/**
@@ -164,7 +164,7 @@ class SDGmap_fields
 	 * @param array $field
 	 * @return string
 	 */
-	protected function createFieldAttachment(array $field)
+	protected static function createFieldAttachment(array $field)
 	{
 		$field['value'] = (!empty($field['value'])) ? $field['value'] : '';
 
